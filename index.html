@@ -1,0 +1,275 @@
+<title>SDCAC QUIZS</title>
+<link rel="icon" href="images/hero.ico" type="image/x-icon">
+<script language="JavaScript">
+<!--
+var text="<font color=yellow>Note: </font><font color=white>Login with your Exam Password</font>";
+var delay=50;
+var currentChar=1;
+var destination="[not defined]";
+
+function type()
+{
+  if (document.getElementById)
+  {
+    var dest=document.getElementById(destination);
+    if (dest)// && dest.innerHTML)
+    {
+      dest.innerHTML=text.substr(0, currentChar);
+      //dest.innerHTML+=text[currentChar-1];
+      currentChar++
+      if (currentChar>text.length)
+      {
+        currentChar=1;
+		xx = document.getElementById(destination).innerHTML
+       document.getElementById(destination).innerHTML=xx + ""
+      }
+      else
+      {
+        setTimeout("type()", delay);
+      }
+    }
+  }
+}
+
+function startTyping(textParam, delayParam, destinationParam)
+{
+  text=textParam;
+  delay=delayParam;
+  currentChar=1;
+  destination=destinationParam;
+  type();
+}
+//-->
+</script>
+<?php
+session_start();
+if(isset($_SESSION['qlevel']))
+{
+unset($_SESSION['qzid']);
+unset($_SESSION['qname']);
+unset($_SESSION['noq']);
+unset($_SESSION['tlimit']);
+unset($_SESSION['oflag']);
+unset($_SESSION['coff']);
+unset($_SESSION['mode']);
+unset($_SESSION['qlevel']);
+}
+else
+	echo "";
+@include "db.php";
+unset($_SESSION['startcheck']);
+unset($_SESSION['tlimit']);
+if(!isset($_SESSION['quizvisitsnumber']))
+	{
+	
+	$mq=mysql_query("SELECT MAX(no) FROM quiz_visits WHERE id='N100704'");
+	$number=mysql_fetch_array($mq);
+	$number[0]++;
+	mysql_query("UPDATE `quiz_visits` SET `no`=$number[0],`id`='N100704'");
+	$_SESSION['quizvisitsnumber']='goo';
+	}
+else
+	{
+	$mq=mysql_query("SELECT MAX(no) FROM quiz_visits WHERE id='N100704'");
+	$number=mysql_fetch_array($mq);
+	$number[0]=$number[0];
+	}
+
+?>
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta content="Copyrights SDCAC TEAM" />
+<script src="scripts/jquery.js"></script>
+<script src="scripts/jsfun.js"></script>
+<script>
+$(document).ready(function(){
+$("#avaquizdiv").load("aquizs.php");
+$("#notificationsdiv").load("notifications.php");
+$("#topscoresdiv").load("top_scores.php");
+});
+$(document).ready(function(){
+		$(".flip").click(function(){
+			$(".panel").slideToggle(500);
+		  });
+		});
+function loginthis()
+		{
+	var uid=$("#userid").val();
+	var upass=$("#userpassword").val();
+
+	if(uid!=false && upass!=false)
+	{
+	$("#loginpanel").hide(1000);
+	$("#loginarea").html("<font color=green>Loading...</font>");
+	var mstr="uid="+uid+"&& upass="+upass;
+	$.post("login.php?"+mstr,function(data){
+	if(data!="<font color=white>Login Fail</font>" && data!="<font color=white>Wrong Password</font>" && data!="<font color=white>Try with another password</font>")
+		$("#loginpanel").html("<br><br><font color=white><center>Logout</center> </font>");
+	$("#loginarea").html(data);
+	
+
+	});
+	
+
+	}
+	else
+	{
+		alert("Require Fields Not be Null!!!");
+	}
+
+			
+		}
+
+</script>
+<STYLE>
+div.panel,p.flip
+			{
+			position:absolute;
+			left:85%;
+			top:1%;
+			width:13%;
+			margin:0px;
+			text-align:center;
+			background:;
+			border:solid 1px white;
+			cursor:pointer;
+			border-radius:10px;
+			}
+			div.panel
+			{
+			
+			border-radius:10px;
+			width:13%;
+			height:110px;
+			cursor:pointer;
+			display:none;
+			}
+			.ys
+				{
+				position:absolute;top:80%;left:41%;width:25%;height:10%;
+				background-color:;color:yellow;
+				}
+			.ys:hover
+				{
+				position:absolute;top:80%;left:41%;width:25%;height:10%;
+				
+				}
+			
+
+			#userid{width:60%;border-radius:5px;color:grey;}
+			#userpassword{width:60%;border-radius:5px;color:grey;}
+</STYLE>
+</head>
+<body background='images/background.png' onload="startTyping(text, 50, 'state')">
+<div id='maindiv' >
+<img src='images/header.png' style='position:absolute;top:0%;left:0%;width:100%;height:120px;'>
+<img src='images/rgukt.png' style='border:0px;position:absolute;top:15%;left:8%;width:2%;height:30px'>
+<div style='border:0px;position:absolute;top:16%;left:10%;width:3%;height:40px'><font color=white SIZE=4><b>&nbsp;IIIT-N</B></font></div>
+<img src='images/test.jpeg' style='border:0px;position:absolute;top:0%;left:18%;width:62%;height:120px;'>
+<div style='position:absolute;top:22%;left:0%;width:100%;height:120px;' align='center' id='state'>
+
+</div>
+
+
+
+
+<table border=1  style='border-color:skyblue;background-color:white;position:absolute;top:30%;left:20%;width:20%;height:5%;'>
+<tr><td align='center'>Available Quizs</td></tr>
+</table>
+
+<table border=1 style='border-color:skyblue;position:absolute;top:37%;left:20%;width:20%;height:40%;'>
+<tr><td>
+<div id='avaquizdiv' style='overflow:scroll;height:252px;'></div>
+</td></tr>
+</table>
+
+
+<table border=1 style='border-color:skyblue;background-color:white;position:absolute;top:30%;left:43%;width:20%;height:5%;'>
+<tr><td align='center'  >
+Notifications
+
+</td></tr>
+</table>
+
+<table border=1 style='border-color:skyblue;position:absolute;top:37%;left:43%;width:20%;height:40%;'>
+<tr><td >
+<div id='notificationsdiv' style='overflow:scroll;height:252px;'></div>
+
+</td></tr>
+</table>
+
+<table border=1 style='border-color:skyblue;background-color:white;position:absolute;top:30%;left:65%;width:20%;height:5%;'>
+<tr><td align='center'>Top Scores</td></tr>
+</table>
+
+<table border=1 style='border-color:skyblue;position:absolute;top:37%;left:65%;width:20%;height:40%;'>
+<tr><td>
+<div id='topscoresdiv' style='overflow:scroll;height:252px;'></div>
+</td></tr>
+</table>
+
+
+<table border=1 style='border-color:yellow;position:absolute;top:87%;left:41%;width:25%;height:10%;' class='ys'>
+<tr  onclick="window.location.href='your_scores.php'" style='cursor:pointer;'><td align='center'>Your Scores</td></tr>
+</table>
+
+<?php
+if(!isset($_SESSION['quizvisitsnumber']))
+	{
+	@include "db.php";
+	$mq=mysql_query("SELECT MAX(no) FROM quiz_visits WHERE id='N100704'");
+	$number=mysql_fetch_array($mq);
+
+	if($number[0]>0)
+		{
+		$number[0]++;
+		mysql_query("UPDATE `quiz_visits` SET `no`='$number[0]',`id`='N100704'");
+		}
+	else
+		{
+		$number[0]=1;
+		mysql_query("UPDATE `quiz_visits` SET `no`='$number[0]',`id`='N100704'");
+		}
+	}
+if(isset($_SESSION['quizcomplete']))
+	{
+	echo "<script>alert('Check Your Results in Your Scores Tab');</script>";
+	unset($_SESSION['quizcomplete']);
+	}
+?>
+<table border=0 style='position:absolute;top:85%;left:83%;width:15%;height:10%;'>
+<tr><td align='center' id='visitcounter'><?php echo "<font color=yellow>Visits&nbsp;&nbsp;<h2>0000".$number[0]."</h2></font>";?></td></tr>
+</table>
+
+
+
+</div>
+<div class="panel" id='loginpanel' ><br>
+<?php
+if(!isset($_SESSION['quiz_login_id']))
+{
+?>
+<br><FONT COLOR=WHITE>ID:</FONT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=text id=userid placeholder='N100704' maxlength='7'><br>
+<FONT COLOR=WHITE>PWD</FONT>&nbsp;<input type=password  id=userpassword placeholder='PWD'><br>
+<input type=submit value='Login' onclick='loginthis()' style='border-radius:4px;border:1px dotted;'>
+<?php
+}
+else
+	echo "<br><BR><font color=white><span onclick='logout()'>Logout</span></font>";
+
+?>
+</div>
+ 
+<p class="flip" id='loginarea'><FONT COLOR=YELLOW>
+<?php
+if(isset($_SESSION['quiz_login_id']))
+	echo $_SESSION['quiz_login_id'];
+else
+	echo "Login Area";
+?>
+
+</FONT></p>
+</body>
+</html>

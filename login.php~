@@ -1,0 +1,52 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['quiz_login_id']))
+	{
+	$conn=mysql_connect("localhost","root","9014734454") or die(mysql_error());
+	mysql_select_db("sdcac_database",$conn);
+	$uname=addslashes(htmlspecialchars($_GET['uid']));
+	$pwd=addslashes(htmlspecialchars($_GET['upass']));
+	$q=mysql_query("SELECT * FROM students WHERE ID='$uname'");
+	if(mysql_num_rows($q)>0)
+		{
+		$k=mysql_fetch_array($q);
+		if($k['status']!=1)
+			{
+			if($k['pwd']==$pwd)
+				{
+				if($uname=="N100704" || $uname=="N100775" )
+					{
+					echo "<font color=red>".$uname."</font>";
+					unset($_SESSION['quiz_login_id']);
+					unset($_SESSION['branch']);
+					unset($_SESSION['name']);
+					$_SESSION['quiz_login_id']=$uname;
+					$_SESSION['branch']=$k['Branch'];
+					$_SESSION['name']=$k['Name'];
+					$_SESSION['quiz_admin_id']=$uname;
+					}
+				else
+					{
+					echo "welcome $uname";
+					unset($_SESSION['quiz_login_id']);
+					unset($_SESSION['branch']);
+					unset($_SESSION['name']);
+					$_SESSION['quiz_login_id']=$uname;
+					$_SESSION['branch']=$k['Branch'];
+					$_SESSION['name']=$k['Name'];
+					}
+				}
+			else
+				echo "<font color=red>Wrong Password</font>";
+			}
+		else
+			echo "<font color=red>Try with another password</font>";
+		}
+	else
+		echo "<font color=red>Login Fail</font>";
+
+	
+	}
+
+?>

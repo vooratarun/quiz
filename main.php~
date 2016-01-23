@@ -1,0 +1,58 @@
+<?php
+
+?>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta content="Copyrights SDCAC TEAM" />
+<script src="scripts/jquery.js"></script>
+<script src="scripts/jsfun.js"></script>
+</head>
+<body>
+
+<table border=1 style='position:absolute;left:5%;top:5%;width:90%;height:14%;'>
+<tr><td>Ganesh</td></tr>
+</table>
+
+
+
+<table border=1 style='position:absolute;top:30%;left:20%;width:20%;height:5%;'>
+<tr><td align='center'>Available Quizs</td></tr>
+</table>
+
+<table border=1 style='position:absolute;top:37%;left:20%;width:20%;height:40%;'>
+<tr><td>Ganesh</td></tr>
+</table>
+
+
+<table border=1 style='position:absolute;top:30%;left:43%;width:20%;height:5%;'>
+<tr><td  align='center'>Notifications</td></tr>
+</table>
+
+<table border=1 style='position:absolute;top:37%;left:43%;width:20%;height:40%;'>
+<tr><td>Ganesh</td></tr>
+</table>
+
+<table border=1 style='position:absolute;top:30%;left:65%;width:20%;height:5%;'>
+<tr><td align='center'>Top Scores</td></tr>
+</table>
+
+<table border=1 style='position:absolute;top:37%;left:65%;width:20%;height:40%;'>
+<tr><td>Ganesh</td></tr>
+</table>
+
+
+<table border=1 style='position:absolute;top:80%;left:41%;width:25%;height:10%;'>
+<tr><td align='center'>Your Scores</td></tr>
+</table>
+
+
+<table border=1 style='position:absolute;top:87%;left:83%;width:15%;height:10%;'>
+<tr><td align='center'>Visits</td></tr>
+</table>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+<?php
+session_start();
+$conn=mysql_connect("localhost","root","9014734454") or die(mysql_error());
+mysql_select_db("sdcac_database",$conn);
+$id=$_SESSION['quiz_login_id'];
+mysql_query("DELETE FROM `quiz_online` WHERE id='$id'");
+
+?>

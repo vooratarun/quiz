@@ -1,0 +1,35 @@
+<table border=0 style='position:absolute;left:5%;top:35%;width:90%;height:1%;'>
+<tr><td align='center' width='15%'></td><td align='center' width='10%'></td><td align='center' width='10%'></td><td align='center' width='15%'></td><td align='center' width='10%'></td><td align='center' width='15%'></td><td align='center' width='15%'></td><td align='center' width='15%'></td></tr>
+
+
+
+
+<?php
+if(isset($_SESSION['quiz_login_id']))
+{
+@include "db.php";
+
+
+
+
+$q1=mysql_query("SELECT * FROM quiz_top_scores WHERE id='$id'");
+if(mysql_num_rows($q1)>0)
+	{
+	while($krow=mysql_fetch_array($q1))
+		{
+		echo "<tr><td align='center' width='15%'>".ucfirst($krow['qname'])."</td><td align='center' width='10%'>".$krow['level']."</td><td align='center' width='10%'>".$krow['coff']."</td><td align='center' width='15%'>".$krow['score']."/".$krow['noq']."</td><td align='center' width='10%'>".$_SESSION['branch']."</td><td align='center' width='15%'>".$krow['performance']."</td><td align='center' width='15%'><font size=1>".$krow['time']."</font></td><td align='center' width='15%'>".$krow['ip']."</td></tr>
+";
+		}
+	
+	}
+else
+	echo "<tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><td align='center' width='15%' colspan=10><font color=red size=4>No Results Found For Your ID Number</font></td><td align='center' width='10%'></td><td align='center' width='10%'></td><td align='center' width='15%'></td><td align='center' width='10%'></td><td align='center' width='15%'></td><td align='center' width='15%'></td><td align='center' width='15%'></td></tr>
+";
+
+
+}
+else
+	echo "<tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><Td></td></tr><tr><td align='center' width='15%' colspan=10><font color=red size=4>No Results Found For Your ID Number</font></td><td align='center' width='10%'></td><td align='center' width='10%'></td><td align='center' width='15%'></td><td align='center' width='10%'></td><td align='center' width='15%'></td><td align='center' width='15%'></td><td align='center' width='15%'></td></tr>
+";
+?>
+</table>

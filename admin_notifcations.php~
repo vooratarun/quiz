@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta content="Copyrights SDCAC TEAM" />
+<script src="scripts/jquery.js"></script>
+<script src="scripts/jsfun.js"></script>
+</head>
+
+<body>
+	<table border=1 style='position:absolute;left:5%;top:5%;width:90%;height:20%;'>
+<tr><td>Ganesh</td></tr>
+</table>
+	<table border=1 style='postion:absolute;'>
+
+	</table>
+	
+</body>
+</html>
+
+<?php
+
+
+?>

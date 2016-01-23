@@ -1,0 +1,33 @@
+<script src="jquery.js"></script>
+<div class="upload_box">
+<form name="fileUpload" id="fileUpload" action="" 
+enctype="multipart/form-data">
+<div class="file_browser">
+<input type="file" name="multiple_files[]" id="multiple_files" 
+class="hide_broswe" multiple /></div>
+<div class="file_upload"><input type="submit" value="Upload" 
+class="upload_button" /> </div>
+</form>
+</div>
+
+<!-- Deleted files will listed here -->
+<div class="file_boxes">
+<span id="removed_files"></span>
+</div>
+
+<?php
+if(isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST"){
+$file_name = strip_tags($_FILES['upload_file']['name']);
+$file_id = strip_tags($_POST['upload_file_ids']);
+$file_size = $_FILES['upload_file']['size'];
+$files_path = 'downloads/';
+$file_location = $files_path . $file_name;
+
+if(move_uploaded_file(strip_tags($_FILES['upload_file']['tmp_name']), 
+$file_location)){
+echo $file_id;
+}else{
+echo 'system_error';
+}
+}
+?>
